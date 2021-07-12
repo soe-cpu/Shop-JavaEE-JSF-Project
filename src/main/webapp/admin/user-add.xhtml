@@ -34,16 +34,15 @@
 									</small>
 								</div>
 							</div>
-							<div class="col-lg-8 mb-4">
-								<div class="form-group">
+							<div class="col-lg-8 mb-2" >
+								<h:panelGroup styleClass="form-group" rendered="#{userBean.user.id == 0}">
 									<label>Email</label>
 									<h:inputText validatorMessage="Require Email" value="#{userBean.user.loginId}" p:placeholder="Enter Email" id="loginId" styleClass="form-control border-0 shadow-sm" >
 										<f:validateRequired></f:validateRequired>
 									</h:inputText>
 									<h:message for="loginId" styleClass="text-danger"/>
-								</div>
-							</div>
-							
+								</h:panelGroup>
+							</div>						
 							<div class="col-lg-8 mb-4">
 								<h:panelGroup styleClass="form-group" rendered="#{userBean.user.id == 0}">
 									<h:outputLabel value="Password" />
@@ -55,6 +54,28 @@
 							</div>
 							<div class="col-lg-8 mb-4">
 								<div class="form-group">
+									<label>Phone:</label>
+									<h:inputText id="phone" validatorMessage="Require Phone Number" value="#{userBean.user.phone}" p:placeholder="Enter Phone Number" styleClass="form-control border-0 shadow-sm" >
+										<f:validateRequired></f:validateRequired>
+									</h:inputText>
+									<small>
+										<h:message for="phone" styleClass="text-danger"/>
+									</small>
+								</div>
+							</div>
+							<div class="col-lg-8 mb-4">
+								<div class="form-group">
+									<label>Address:</label>
+									<h:inputText id="address" validatorMessage="Require Address" value="#{userBean.user.address}" p:placeholder="Enter Address" styleClass="form-control border-0 shadow-sm" >
+										<f:validateRequired></f:validateRequired>
+									</h:inputText>
+									<small>
+										<h:message for="address" styleClass="text-danger"/>
+									</small>
+								</div>
+							</div>
+							<div class="col-lg-8 mb-4"> 
+								<h:panelGroup styleClass="form-group" rendered="#{userBean.user.id == 0 or userBean.user.role == 'Admin'}">
 									<label>Role</label>
 									<h:selectOneMenu value="#{userBean.user.role}" styleClass="form-control border-0 shadow-sm">
 										<f:selectItem itemLabel="Admin" itemValue="Admin"/>
@@ -62,7 +83,7 @@
 										<f:selectItem itemLabel="Customer" itemValue="Customer"/>
 										<f:selectItem itemLabel="Member" itemValue="Member"/>
 									</h:selectOneMenu>
-								</div>	                	
+								</h:panelGroup>	                	
 			              	</div>
 						</div>
 						<div class="row">

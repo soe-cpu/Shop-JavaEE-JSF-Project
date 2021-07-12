@@ -17,6 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @NamedQuery(name = "Product.findAll",query="SELECT p FROM Product p ORDER BY p.created_at DESC")
 @NamedQuery(name = "Product.findPhotoById",query = "SELECT p.photo FROM Product p WHERE p.id=:pId")
+@NamedQuery(name = "Product.findByNameBrandCategory",query = "SELECT p FROM Product p WHERE p.brand.id = :bId AND p.category.id = :cId AND p.name = :pname")
 public class Product implements Serializable {
 
 	
@@ -27,6 +28,7 @@ public class Product implements Serializable {
 	@Column(unique = true,nullable = false)
 	private String name;
 	private int price;
+	@Column(columnDefinition = "TEXT")
 	private String poductDetails;
 	private String photo;
 	private Status status;

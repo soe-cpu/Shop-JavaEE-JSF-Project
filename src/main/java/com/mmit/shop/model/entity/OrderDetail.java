@@ -60,5 +60,9 @@ public class OrderDetail implements Serializable {
 	public void setSubQty(int subQty) {
 		this.subQty = subQty;
 	}
+	
+	public int subPrice() {
+		return subQty*product.getPrice();
+	}
    
 }

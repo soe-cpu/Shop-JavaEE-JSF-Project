@@ -10,9 +10,14 @@
 		<ui:define name="main-header">Product List</ui:define>
 		<ui:define name="sub-header">Product</ui:define>
 		<ui:define name="add-button">
-			<h:link outcome="/admin/product-add" styleClass="d-none d-sm-inline-block btn btn-success shadow-sm col-1">
-				<i class="fas fa-plus fa-sm text-white-50"></i> Add
-			</h:link>
+			<div class="col-3">
+				<a href="#" id="btn-upload" class="d-none d-sm-inline-block btn btn-danger shadow-sm mx-2">
+					<i class="fas fa-upload fa-sm text-white-50"></i> Upload
+				</a>
+				<h:link outcome="/admin/product-add" styleClass="d-none d-sm-inline-block btn btn-success shadow-sm">
+					<i class="fas fa-plus fa-sm text-white-50"></i> Add
+				</h:link>
+			</div>
 		</ui:define>
 		<ui:define name="main-content">
 			<div class="card shadow mb-4">
@@ -53,15 +58,32 @@
 	                   					<i class="fas fa-edit"></i> Edit
 	                   				</h:link>
 	                   				|	
-									<h:commandLink action="#{productBean.remove(p.id)}" onclick="if(!confirm('Are you sure to delete?')){return flase;}">
+									<h:commandLink action="#{productBean.remove(p.id)}" onclick="if(!confirm('Are you sure to delete?')){return flase;}" styleClass="text-danger">
 										<i class="far fa-trash-alt"></i> Remove
 									</h:commandLink>
 	                   			</h:column>	
 	                   		</h:dataTable>
 	                   	</h:form>	
 	           		</div>
-               </div>
+               </div>     
            </div>
+            <h:form enctype="multipart/form-data" styleClass="d-none">
+	    		<h:inputFile value="#{productBean.fileUpload}" styleClass="file-open"></h:inputFile>
+	    		<h:commandButton action="#{productBean.upload()}" value="Upload" styleClass="upload" />
+	    	</h:form> 
+		</ui:define>
+		<ui:define name="js">
+			<script>
+				$(document).ready(function(){
+					$('#btn-upload').click(function(){
+						$('.file-open').click();
+						});
+					
+					$('.file-open').change(function(){
+						$('.upload').click();
+						});
+				});
+			</script>
 		</ui:define>
 	</ui:composition>
 </html>

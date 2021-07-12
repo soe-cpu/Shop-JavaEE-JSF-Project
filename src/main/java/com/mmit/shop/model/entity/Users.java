@@ -29,6 +29,9 @@ public class Users implements Serializable {
 	private String loginId;
 	private String password;
 	private String userName;
+	@Column(unique = true)
+	private String phone;
+	private String address;
 	@CreationTimestamp
 	private LocalDate created_at;
 	@UpdateTimestamp
@@ -70,6 +73,23 @@ public class Users implements Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public LocalDate getCreated_at() {
 		return created_at;
 	}

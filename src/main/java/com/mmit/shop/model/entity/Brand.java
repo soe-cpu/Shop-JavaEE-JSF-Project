@@ -18,6 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "brands")
 @NamedQuery(name = "Brand.findAll",query = "SELECT b FROM Brand b")
+@NamedQuery(name = "Brand.findByName",query = "SELECT b FROM Brand b WHERE b.name = :name")
 public class Brand implements Serializable {
 
 	

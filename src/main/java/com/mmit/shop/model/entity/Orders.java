@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.MERGE;
 
 /**
  * Entity implementation class for Entity: Orders
@@ -16,6 +17,7 @@ import static javax.persistence.CascadeType.PERSIST;
  */
 @Entity
 @NamedQuery(name = "Orders.findAll",query = "SELECT o FROM Orders o")
+@NamedQuery(name = "Orders.findByLoginId",query = "SELECT o FROM Orders o WHERE o.customer.id = :loginId")
 public class Orders implements Serializable {
 
 	
@@ -29,14 +31,29 @@ public class Orders implements Serializable {
 	private Users customer;
 	@CreationTimestamp
 	private LocalDate orderDate;
+	
+	private LocalDate receiveDate;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	public enum Status{
-		Pending,Delivered
+		Pending,Received,Delivered
 	}
 	@OneToMany(mappedBy = "order", cascade = PERSIST)
 	private List<OrderDetail> details=new ArrayList<OrderDetail>();
 	
+	
+	
+	@OneToOne(mappedBy = "order", cascade = { PERSIST, MERGE })
+	private Delivery delivery = new Delivery();
+	
+	public void addDelivery(Delivery d) {
+		d.setOrder(this);
+		this.setDelivery(d);
+	}
+//	@PrePersist
+//	private void initializeOrderStatus() {
+//		status = Status.Pending;
+//	}
 	public void addOrderItem(OrderDetail detail) {
 		detail.setOrder(this);
 		details.add(detail);
@@ -92,6 +109,21 @@ public class Orders implements Serializable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public Delivery getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
+	}
+	public LocalDate getReceiveDate() {
+		return receiveDate;
+	}
+	public void setReceiveDate(LocalDate receiveDate) {
+		this.receiveDate = receiveDate;
+	}
+	
 	
    
 }

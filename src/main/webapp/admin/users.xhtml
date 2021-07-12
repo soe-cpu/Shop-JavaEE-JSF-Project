@@ -22,6 +22,7 @@
             </div>
 			<div class="card-body">
 				<div class="table-responsive">
+					<h:form>
 					<h:dataTable binding="#{b}" value="#{userBean.users}" var="u" styleClass="table table-bordered"  id="dataTable" width="100%" cellspacing="0">
 						<h:column>
                				<f:facet name="header">No</f:facet>
@@ -45,16 +46,17 @@
                    			<h:link outcome="/admin/user-add">
                    				<f:param name="userId" value="#{u.id}"></f:param>
                    				<i class="fas fa-edit"></i> Edit
-                   			</h:link>
-                   		</h:column>	
-                   		<h:commandLink action="#{userBean.remove(u.id)}" onclick="if(!confirm('Are you sure to delete?')){return flase;}">
-							<i class="far fa-trash-alt"></i> Remove
-						</h:commandLink>		
+                   			</h:link>             
+                   			|   		
+	                   		<h:commandLink action="#{userBean.remove(u.id)}" onclick="if(!confirm('Are you sure to delete?')){return flase;}" styleClass="text-danger">
+								<i class="far fa-trash-alt"></i> Remove
+							</h:commandLink>
+						</h:column>			
 					</h:dataTable>
+					</h:form>
 				</div>
 			</div>
 		</div>
-	           
 		</ui:define>
 		
 	</ui:composition>

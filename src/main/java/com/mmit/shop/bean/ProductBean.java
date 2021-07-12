@@ -33,6 +33,8 @@ public class ProductBean implements Serializable{
 	private Product product;
 	
 	private Part imgPart;
+	private Part fileUpload;
+	
 	private ServletContext cxt; 
 	private String imgFolder = null;
 	@PostConstruct
@@ -99,6 +101,13 @@ public class ProductBean implements Serializable{
 		service.remove(id);
 		return "/admin/products.xhtml?faces-redirect=true";
 	}
+	public String upload() {
+		if(fileUpload != null && fileUpload.getSubmittedFileName().equals("")) {
+			service.uploadData(fileUpload);
+		}
+		return null;
+	}
+	
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -114,5 +123,12 @@ public class ProductBean implements Serializable{
 	public void setImgPart(Part imgPart) {
 		this.imgPart = imgPart;
 	}
+	public Part getFileUpload() {
+		return fileUpload;
+	}
+	public void setFileUpload(Part fileUpload) {
+		this.fileUpload = fileUpload;
+	}
+	
 	
 }

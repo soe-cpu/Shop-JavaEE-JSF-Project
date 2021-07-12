@@ -17,6 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "categories")
 @NamedQuery(name = "Category.findAll",query = "SELECT c FROM Category c")
+@NamedQuery(name = "Category.findById",query = "SELECT c FROM Category c WHERE c.name = :name")
 public class Category implements Serializable {
 
 	

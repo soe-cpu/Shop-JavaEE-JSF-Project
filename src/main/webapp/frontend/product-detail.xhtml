@@ -12,7 +12,7 @@
 	
 	<section class="product-detail">
 		<div class="container">
-		<div class="row">
+			<div class="row">
 				<div class="colmd-12">
 					<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 					  <ol class="breadcrumb">
@@ -24,9 +24,8 @@
 					</nav>
 				</div>
 			</div>
-	</div>
-		<div class="container shadow-sm bordered-top">
-			
+		</div>
+		<div class="container shadow-sm bordered-top">	
 			<div class="row py-2">
 				<div class="col-md-6">
 					<h:graphicImage library="uploads" name="#{empty productBean.product.photo ? 'noimage.jpg' : productBean.product.photo}" styleClass="img-fluid " />
@@ -37,8 +36,13 @@
 							<h3>#{productBean.product.name}</h3>
 						</div>
 						<div class="col-2 py-2">
-							<button class="btn btn-danger"><i class="fas fa-cart-plus"></i></button>
-						</div>
+	              			<h:form>
+	              				<h:commandLink action="#{cartBean.addToCart(productBean.product.id)}" styleClass="btn btn-danger">
+	              					<i class="fas fa-cart-plus"></i>
+	              					<f:ajax render="cart-item-count"></f:ajax>
+	              				</h:commandLink>       								
+	              			</h:form>
+	              		</div>
 						<hr />
 						<div class="col-4 text-center py-2">Brand: <span class="noti-b">#{productBean.product.brand.name}</span></div>
 						<div class="col-4 text-center py-2">Category: <span class="noti-c">#{productBean.product.category.name}</span></div>
@@ -49,12 +53,9 @@
 				</div>
 			</div>
 			<div class="row py-2">
-
 				<div class="d-grid gap-2 col-6 mx-auto">
 					
-				</div>
-					
-	
+				</div>			
 			</div>
 		</div>
 	</section>
@@ -71,41 +72,22 @@
 	      		</div>
 	    	</div>
 	    	<div class="row">
-	    		<div class="owl-carousel owl-theme my-4">
-	      			<ui:repeat var="p" value="#{productBean.products}">
-	        			<div class="col-md-12 col-sm-6 ">
-	        				<div class="card mb-3 shadow-sm zoom">
-	          					<!-- <div class="noti"><div class="noti-new"> New</div></div> -->
-	          					<div class="row g-0">
-	            					<div class="col-md-6">
-	            						<h:graphicImage library="uploads" name="#{empty p.photo ? 'noimage.jpg' : p.photo}" styleClass="card-img-top" />
-	            					</div>
-           							<div class="col-md-6">
-				             			<div class="card-body mx-3">
-				                			<h6 class="card-title text-danger text-uppercase fw-bold">#{p.name}</h6>
-						                	<p>#{p.price} Ks</p>
-				              			</div>
-				            		</div>
-	          					</div>
-            					<div class="row  g-0 my-2">
-            						<div class="col-7 mx-1"><p>Updated at <small class="text-muted">#{p.updated_at}</small></p></div>
-              						<div class="col-2">
-              							<h:link outcome="/frontend/product-detail" styleClass="btn btn-danger">
-              								<f:param name="pId" value="#{p.id}"></f:param>
-								            <i class="far fa-eye"></i>
-								        </h:link>
-              						</div>
-              						<div class="col-2"><button class="btn btn-danger"><i class="fas fa-cart-plus"></i></button></div>
-            					</div>
-	        				</div>
-	      				</div>
-	      			</ui:repeat>
-	      		</div>
+	    		<div class="carousel-wrap">
+	          		<div class="owl-carousel">
+	          			<ui:repeat var="p" value="#{productBean.products}">
+			              <div class="item">
+			              	<h:link outcome="/frontend/product-detail">
+		         				<f:param name="pId" value="#{p.id}"></f:param>
+					            <h:graphicImage library="uploads" name="#{empty p.photo ? 'noimage.jpg' : p.photo}" styleClass="card-img-top" />
+					        </h:link>	               
+			              </div>
+	             		</ui:repeat>
+	            	</div>
+	          	</div>
 			</div>
 	 	</div>
 	</section>
 	<!-- End New Arrival -->
-
 	</ui:define>
 </ui:composition>
 </html>
